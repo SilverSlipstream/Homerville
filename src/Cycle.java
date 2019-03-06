@@ -31,4 +31,17 @@ public class Cycle
         }
         return cyc;
     }
+
+    public String[] coords(ArrayList<String[]> al)
+    {
+        Integer[] array = new Integer[al.size()];
+        Integer[] pair = new Integer[2];
+        char c;
+        for (int i=0;i<array.length;i++)
+        {
+            pair[0] = Integer.parseInt(al.get(i)[0]) * 2;
+            pair[1] = Integer.parseInt(al.get(i)[0]) * 10;
+            
+        }
+    }
 }
