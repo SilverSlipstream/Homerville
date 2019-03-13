@@ -40,7 +40,7 @@ public class Cycle
 
     public Double[][] coords(ArrayList<String[]> al)
     {
-        Double[][] array = new Double[al.size()][2];
+        Double  [][] array = new Double[al.size()][2];
         char letter;
         int house;
         double street;

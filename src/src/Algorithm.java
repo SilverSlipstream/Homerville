@@ -3,7 +3,7 @@ package src;
 public class Algorithm {
     private static int trialCount = 4;
 
-    public int[] alg(int[][] cyc) //idk what to name this
+    public int[] alg(int[][] cyc)
     {
         int[][] trials = new int[trialCount][];
         for (int i = 0; i < trialCount; i++)
@@ -11,6 +11,16 @@ public class Algorithm {
             trials[i] = trial(cyc, i); //tests 0 to trialCount-1 rented trucks (ignore purchased trucks)
         }
         return optimize(trials);
+    }
+    public static int[] trial (int[][] cycle, int totalTrucks) //does the actual algorithm
+    {
+        currentLoc = {,}
+        for (int i = 0; i < 10000; i++)
+        {
+            Double[] newLoc = getClosestLoc();
+
+        }
+        return new int[1];
     }
     public static int[] optimize(int[][] trials) //finds the smallest trial cost
     {
@@ -31,10 +41,8 @@ public class Algorithm {
     {
         return 0;//delete this
     }
-    public static int[] trial (int[][] cycle, int totalTrucks) //does the actual algorithm
+    public static getClosestLoc()
     {
-        //weighLocations();
-        //shortestPath();
-        return new int[1];
+
     }
 }
