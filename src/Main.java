@@ -11,11 +11,23 @@ public class Main {
 		Double[][] data = cycl.coords(cycleData);
 		for (int i = 0; i < data.length; i++)
 		{
+			System.out.println("Dev Locations for this point");
+            int x = 1;
     		for (int j = 0; j < data[i].length; j++)
     		{
-        		System.out.print(data[i][j] + " ");
+    			if((j == 0 )|| (j == 2) || (j == 4))
+    			{
+    			System.out.println("Dev" + x);
+    			System.out.println("X");
+                x++;
+    			}
+    			else
+    			{
+    				System.out.println("Y");
+    			}
+        		System.out.println(data[i][j] + " ");
     		}
-    		System.out.println();
+    		
 		}
 	}
 }

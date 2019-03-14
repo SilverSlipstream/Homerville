@@ -1,7 +1,8 @@
 package src;
 
 public class Algorithm {
-    private static int trialCount = 4;
+/*
+ private static int trialCount = 4;
 
     public int[] alg(int[][] cyc)
     {
@@ -14,7 +15,7 @@ public class Algorithm {
     }
     public static int[] trial (int[][] cycle, int totalTrucks) //does the actual algorithm
     {
-        currentLoc = {,}
+        
         for (int i = 0; i < 10000; i++)
         {
             Double[] newLoc = getClosestLoc();
@@ -41,8 +42,11 @@ public class Algorithm {
     {
         return 0;//delete this
     }
-    public static getClosestLoc()
+    public static double[] getClosestLoc(double currentx, double currenty, double[][] locations)
     {
 
     }
+  */  
 }
+
+
