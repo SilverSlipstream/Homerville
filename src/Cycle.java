@@ -1,5 +1,3 @@
-package src;
-
 import java.util.*;
 import java.io.*;
 
@@ -40,78 +38,31 @@ public class Cycle
 
     public Double[][] coords(ArrayList<String[]> al)
     {
-        Double[][] array = new Double[al.size()][6];
+        Double[][] array = new Double[al.size()][2];
         char letter;
         double house;
         double street;
-        for (int i=0;i<array.length;i++)
-        {
-        	boolean singleletter = false;
-            street = (al.get(i)[2].length() == 1) ? -0.5 : 0.5;     //if house name is single letter, west side.
-            if(al.get(i)[2].length() == 1)
-            {
-            	singleletter = true;
-            }                                          //therefore, street is to the east, and +0.5 distance east
+        for (int i=0;i<array.length;i++) {
+
+            street = (al.get(i)[2].length() == 1) ? 0.5 : 0.5;
+
             letter = al.get(i)[2].charAt(0);
-            house = numToLetter(letter);
-            house = (house - 1) + .5;
-            double housex = ((Double.parseDouble(al.get(i)[0]) * 2) - 1)+ street;
-            double housey = (Double.parseDouble(al.get(i)[1]) -1) * 10 + house;
-            if(singleletter)
-            {
-	            array[i][0] = housex + .5;
-	            array[i][1] = housey + .5;
-	            array[i][2] = housex + .5;
-	            array[i][3] = housey - .5;
-	            if(numToLetter(letter) == 1)
-            	{
-           		 array[i][4] = housex - .5;
-            	 array[i][5] = housey - .5;
-        		}
-        		 if(numToLetter(letter) == 10)
-            	{
-           		 array[i][4] = housex - .5;
-            	 array[i][5] = housey + .5;
-        		}
-        	}	
-        	else
-        	{
-        		array[i][0] = housex - .5;
-	            array[i][1] = housey + .5;
-	            array[i][2] = housex - .5;
-	            array[i][3] = housey - .5;
+            house = letterToNum(letter);
 
-	             if(numToLetter(letter) == 1)
-            	{
-           		 array[i][4] = housex + .5;
-            	 array[i][5] = housey - .5;
-        		}
-        		 if(numToLetter(letter) == 10)
-            	{
-           		 array[i][4] = housex + .5;
-            	 array[i][5] = housey + .5;
-        		}
-        	}
-        if(numToLetter(letter) > 1 && numToLetter(letter) < 10)
-        {
-        	array[i][4] = 0.0;
-           	array[i][5] = 0.0;
-        }
-           
-        	
-
+            array[i][0] = (Double.parseDouble(al.get(i)[0]) - 1) * 2 + street;
+            array[i][1] = (Double.parseDouble(al.get(i)[1]) - 1) * 10 + house;
         }
         return array;
 
     }
 
-    public static int numToLetter(char letter)
+    public static int letterToNum(char letter)
     {
         letter = Character.toLowerCase(letter);
         int temp = (int)letter;
-        int temp_integer = 96; //for lower case
+        int convertToInt = 96 + 1; //for lower case, the "+ 1" to start at 0
 
-        return temp-temp_integer;
+        return temp - convertToInt;
     }
     public ArrayList<String[]> getData()
     {

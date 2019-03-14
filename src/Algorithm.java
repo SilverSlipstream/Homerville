@@ -1,10 +1,8 @@
-package src;
-
 public class Algorithm {
-/*
+
  private static int trialCount = 4;
 
-    public int[] alg(int[][] cyc)
+    public int[] alg(double[][] cyc)
     {
         int[][] trials = new int[trialCount][];
         for (int i = 0; i < trialCount; i++)
@@ -13,15 +11,21 @@ public class Algorithm {
         }
         return optimize(trials);
     }
-    public static int[] trial (int[][] cycle, int totalTrucks) //does the actual algorithm
+    public static int[] trial (double[][] cycle, int totalTrucks) //does the actual algorithm
     {
-        
-        for (int i = 0; i < 10000; i++)
+        int len = cycle.length;
+        Double[] oldLoc = {249.0, 219.5};
+        double[] newLoc;
+        for (int i = 0; i < len; i++)
         {
-            Double[] newLoc = getClosestLoc();
+            newLoc = getClosestLoc(oldLoc[0], oldLoc[1], cycle);
 
         }
         return new int[1];
+    }
+    public static double[] getClosestLoc(double currentx, double currenty, double[][] locations)
+    {
+        
     }
     public static int[] optimize(int[][] trials) //finds the smallest trial cost
     {
@@ -42,11 +46,6 @@ public class Algorithm {
     {
         return 0;//delete this
     }
-    public static double[] getClosestLoc(double currentx, double currenty, double[][] locations)
-    {
-
-    }
-  */  
 }
 
 
