@@ -6,8 +6,10 @@ public class Main {
 	public static void main(String[] args)
 	{
 		Cycle cycl = new Cycle(1);
-		ArrayList<String[]> cycleData = cycl.getData();
-		Double[][] data = cycl.coords(cycleData);
+        ArrayList<String[]> cycleData = cycl.getData();
+        Double[][] data = cycl.coords(cycleData);
+        Algorithm al = new Algorithm(data);
+		
 		for (int i = 0; i < data.length; i++)
 		{
 			System.out.println("Dev Locations for this point");
@@ -28,5 +30,9 @@ public class Main {
     		}
     		
 		}
+        double [] closestpos = al.getClosestLoc(1, 1);
+        System.out.println(closestpos[0]);
+        System.out.println(closestpos[1]);
+
 	}
 }

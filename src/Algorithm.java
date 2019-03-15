@@ -1,5 +1,44 @@
 public class Algorithm {
 
+    public static Double[][] data;
+    public Algorithm(Double[][] data)
+    {
+        this.data = data;
+    }
+    public static double[] getClosestLoc(double currentx, double currenty)
+    {
+        double min= data[0][0] + data[0][1];
+        int point = 0;
+        
+        double [] closestpos = new double[2];
+        for (int i = 0; i < data.length; i++)
+        {
+            
+            for (int j = 0; j < data[i].length; j+=2)
+            {
+                
+                if((data[i][j] - currentx) + (data[i][j + 1] - currenty) < min)
+                {
+                    min = (data[i][j] - currentx) + (data[i][j + 1] - currenty);
+                    closestpos[0]= data[i][j];
+                    closestpos[1] = data[i][j+1];
+                    point = i;
+                }
+            }
+         
+        
+      
+            
+        
+    }
+    for (int j = 0; j < 6; j++)
+         {
+            data[point][j] = 0.0;
+         }
+      return closestpos;
+    }
+
+
  private static int trialCount = 4;
 
     public int[] alg(double[][] cyc)
@@ -25,7 +64,7 @@ public class Algorithm {
     }
     public static double[] getClosestLoc(double currentx, double currenty, double[][] locations)
     {
-        
+        return new double[1];
     }
     public static int[] optimize(int[][] trials) //finds the smallest trial cost
     {
