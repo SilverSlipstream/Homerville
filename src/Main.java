@@ -1,20 +1,20 @@
-//import java.util.*;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 	public static void main(String[] args)
 	{
 		Cycle cycl = new Cycle(1);
         ArrayList<String[]> cycleData = cycl.getData();
-        Double[][] data = cycl.coords(cycleData);
+        Double[][] arr = cycl.coords(cycleData);
+		ArrayList<Double[]> data = new ArrayList<Double[]>(Arrays.asList(arr));
         Algorithm al = new Algorithm(data);
 		
-		for (int i = 0; i < data.length; i++)
+		for (int i = 0; i < data.size(); i++)
 		{
 			System.out.println("Dev Locations for this point");
             int x = 1;
-    		for (int j = 0; j < data[i].length; j++)
+    		for (int j = 0; j < data.get(i).length; j++)
     		{
     			if((j == 0 )|| (j == 2) || (j == 4))
     			{
@@ -26,9 +26,8 @@ public class Main {
     			{
     				System.out.println("Y");
     			}
-        		System.out.println(data[i][j] + " ");
+        		System.out.println(data.get(i)[j] + " ");
     		}
-    		
 		}
         double [] closestpos = al.getClosestLoc(1, 1);
         System.out.println(closestpos[0]);
