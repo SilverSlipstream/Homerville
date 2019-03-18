@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Algorithm {
 
-    private static ArrayList<Double[]> data;
+    private static ArrayList<Double[]> data, editedData;
     private static int trialCount = 4;
 
     public Algorithm(ArrayList<Double[]> data)
@@ -20,38 +20,86 @@ public class Algorithm {
         return optimize(trials);
     }
 
-    public static int[] trial (int totalTrucks) //does the actual algorithm
+    public static double[] trial (int totalTrucks) //does the actual algorithm
     {
-        int len = data.size();
-        double[] oldLoc = {249.0, 219.5};
+        editedData = data;
+        int len;
+        ArrayList<Double[]> oldLoc = new ArrayList<>();
+        Double[] truck1 = {249.0, 219.5},
+                truck2 = {250.0, 209.5},
+                truck3 = {249.0, 209.5},
+                truck4 = {250.0, 219.5};
+        switch (totalTrucks)
+        {
+            case 4: oldLoc.add(0, truck4);
+            case 3: oldLoc.add(0, truck3);
+            case 2: oldLoc.add(0, truck2);
+            case 1: oldLoc.add(0, truck1);
+        }
         double[] newLoc;
+        ArrayList<Double> dist = new ArrayList<>();
+        double distance;
+        if (totalTrucks == 3)
+        {
+            for (int j = 0; j< totalTrucks; j++)
+            {
+                newLoc = getFarthestLoc(oldLoc.get(j)[0], oldLoc.get(j)[1]);
+            }
+        }
+        len = editedData.size();
         for (int i = 0; i < len; i++)
         {
-            newLoc = getClosestLoc(oldLoc[0], oldLoc[1]);
+            for (int j = 0; j< totalTrucks; j++)
+            {
+                newLoc = getClosestLoc(oldLoc.get(j)[0], oldLoc.get(j)[1], j, totalTrucks);
+                distance = Math.abs(newLoc[0] - (oldLoc.get(0)[0]));
+                dist.set(j, dist.get(j) + distance);
+            }
 
         }
-        return new int[1];
+        double[] ret = {};
+        return ret;
     }
 
-    public static double[] getClosestLoc(double currentx, double currenty)
+    public static double[] getClosestLoc(double currentx, double currenty, int truckNum, int totalTrucks)
     {
-        double minDist = data.get(0)[0] + data.get(0)[1];
+        double minDist = editedData.get(0)[0] + editedData.get(0)[1];
         int point = 0; //to identify which point we're going to and which to remove
 
-        double [] closestpos = new double[2];
-        for (int i = 0; i < data.size(); i++)
+            double [] closestpos = new double[2];
+        for (int i = 0; i < editedData.size(); i++)
         {
-            if(Math.abs(data.get(i)[0] - currentx) + Math.abs(data.get(i)[0] - currenty) < minDist)
+            if(Math.abs(editedData.get(i)[0] - currentx) + Math.abs(editedData.get(i)[0] - currenty) < minDist)
             {
-                minDist = Math.abs(data.get(i)[0] - currentx) + Math.abs(data.get(i)[1] - currenty);
-                closestpos[0] = data.get(i)[0];
-                closestpos[1] = data.get(i)[1];
+                minDist = Math.abs(editedData.get(i)[0] - currentx) + Math.abs(editedData.get(i)[1] - currenty);
+                closestpos[0] = editedData.get(i)[0];
+                closestpos[1] = editedData.get(i)[1];
                 point = i;
             }
         }
-        data.remove(data.get(point));
+        editedData.remove(editedData.get(point));
 
         return closestpos;
+    }
+    public static double[] getFarthestLoc(double currentx, double currenty)
+    {
+        double maxDist = editedData.get(0)[0] + editedData.get(0)[1];
+        int point = 0; //to identify which point we're going to and which to remove
+
+        double [] farthestpos = new double[2];
+        for (int i = 0; i < editedData.size(); i++)
+        {
+            if(Math.abs(editedData.get(i)[0] - currentx) + Math.abs(editedData.get(i)[0] - currenty) > maxDist)
+            {
+                maxDist = Math.abs(editedData.get(i)[0] - currentx) + Math.abs(editedData.get(i)[1] - currenty);
+                farthestpos[0] = editedData.get(i)[0];
+                farthestpos[1] = editedData.get(i)[1];
+                point = i;
+            }
+        }
+        editedData.remove(editedData.get(point));
+
+        return farthestpos;
     }
 
     public static int[] optimize(int[][] trials) //finds the smallest trial cost
