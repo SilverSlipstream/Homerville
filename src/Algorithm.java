@@ -10,9 +10,9 @@ public class Algorithm {
         this.data = data;
     }
 
-    public int[] alg(double[][] cyc)
+    public double[] alg(double[][] cyc)
     {
-        int[][] trials = new int[trialCount][];
+        double[][] trials = new double[trialCount][];
         for (int i = 1; i < trialCount; i++)//starts at 1 rented truck bc ignoring purchases
         {
             trials[i] = trial(i); //tests 0 to trialCount-1 rented trucks (ignore purchased trucks)
@@ -24,6 +24,7 @@ public class Algorithm {
     {
         editedData = data;
         int len;
+
         ArrayList<Double[]> oldLoc = new ArrayList<>();
         Double[] truck1 = {249.0, 219.5},
                 truck2 = {250.0, 209.5},
@@ -36,37 +37,47 @@ public class Algorithm {
             case 2: oldLoc.add(0, truck2);
             case 1: oldLoc.add(0, truck1);
         }
+
         double[] newLoc;
         ArrayList<Double> dist = new ArrayList<>();
-        double distance;
+        ArrayList<Integer> housesVisited = new ArrayList<>();
+        int distance;
+
         if (totalTrucks == 3)
         {
             for (int j = 0; j< totalTrucks; j++)
             {
                 newLoc = getFarthestLoc(oldLoc.get(j)[0], oldLoc.get(j)[1]);
+                distance = (int)(Math.abs(newLoc[0] - (oldLoc.get(j)[0])) + Math.abs(newLoc[1] - (oldLoc.get(j)[1])));
+                dist.set(j, dist.get(j) + distance);
+                housesVisited.set(0, 1);
             }
         }
+
         len = editedData.size();
+        int truckCounter = 0;
         for (int i = 0; i < len; i++)
         {
-            for (int j = 0; j< totalTrucks; j++)
+            newLoc = getClosestLoc(oldLoc.get(truckCounter)[0], oldLoc.get(truckCounter)[1]);
+            distance = (int)(Math.abs(newLoc[0] - (oldLoc.get(i)[0])) + Math.abs(newLoc[1] - (oldLoc.get(i)[1])));
+            dist.set(truckCounter, dist.get(truckCounter) + distance);
+            housesVisited.set(truckCounter, housesVisited.get(truckCounter) + 1);
+            if (++truckCounter == totalTrucks)
             {
-                newLoc = getClosestLoc(oldLoc.get(j)[0], oldLoc.get(j)[1], j, totalTrucks);
-                distance = Math.abs(newLoc[0] - (oldLoc.get(0)[0]));
-                dist.set(j, dist.get(j) + distance);
+                truckCounter = 0;
             }
-
         }
-        double[] ret = {};
+
+        double[] ret = {(double)totalTrucks};
         return ret;
     }
 
-    public static double[] getClosestLoc(double currentx, double currenty, int truckNum, int totalTrucks)
+    public static double[] getClosestLoc(double currentx, double currenty)
     {
         double minDist = editedData.get(0)[0] + editedData.get(0)[1];
         int point = 0; //to identify which point we're going to and which to remove
+        double [] closestpos = new double[2];
 
-            double [] closestpos = new double[2];
         for (int i = 0; i < editedData.size(); i++)
         {
             if(Math.abs(editedData.get(i)[0] - currentx) + Math.abs(editedData.get(i)[0] - currenty) < minDist)
@@ -102,7 +113,7 @@ public class Algorithm {
         return farthestpos;
     }
 
-    public static int[] optimize(int[][] trials) //finds the smallest trial cost
+    public static double[] optimize(double[][] trials) //finds the smallest trial cost
     {
         int cheapest = totalCost(trials[0]); //initialized to trial 1 total cost
         int next;
@@ -118,7 +129,7 @@ public class Algorithm {
         return trials[whichIsSmallest];
     }
 
-    public static int totalCost(int[] data) //takes in trials data from alg() and returns total cost
+    public static int totalCost(double[] data) //takes in trials data from alg() and returns total cost
     {
         return 0;//delete this
     }
