@@ -1,8 +1,6 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Algorithm {
-    class DoubleArrayList extends ArrayList<Double> {}
     private static ArrayList<Double[]> data, editedData;
     private static int trialCount = 4;
 
@@ -11,7 +9,7 @@ public class Algorithm {
         this.data = data;
     }
 
-    public ArrayList<Double>[] trial (int totalTrucks) //does the actual algorithm
+    public ArrayList<ArrayList<Double>> trial (int totalTrucks) //does the actual algorithm
     {
         editedData = data;
         int len;
@@ -64,9 +62,9 @@ public class Algorithm {
             }
         }
 
-        ArrayList<Double>[] ret = new DoubleArrayList[2];
-        ret[0] = dist;
-        ret[1] = housesVisited;
+        ArrayList<ArrayList<Double>> ret = new ArrayList<>();
+        ret.add(dist);
+        ret.add(housesVisited);
         return ret;
     }
 
@@ -115,27 +113,61 @@ public class Algorithm {
         return farthestpos;
     }
 
-    public ArrayList<Double>[] optimize(ArrayList<Double>[][] trials) //finds the smallest trial cost
+    public ArrayList<ArrayList<Double>> optimize(ArrayList<ArrayList<ArrayList<Double>>> trials) //finds the smallest trial cost
     {
-        int cheapest = totalCost(trials[0]); //initialized to trial 1 total cost
-        int next;
-        int whichIsSmallest = 0; //after calculations, can determine how many trucks were rented for the cheapest solution, and access complete cost data
+        int[] cheapest = summarize(trials.get(0)); //initialized to trial 1 total cost
+        int whichIsBest = 0; //after calculations, can determine how many trucks were rented for the cheapest solution, and access complete cost data
+        int[] next;
         for (int i = 1; i < trialCount; i++) //keeps calculating total cost and compares
         {
-            next = totalCost(trials[i]);
-            if (next < cheapest){
+            next = summarize(trials.get(i));
+            if (next[0] < cheapest[0] && next[1] <= 24)
+            {
                 cheapest = next;
-                whichIsSmallest = i;
+                whichIsBest = i;
             }
         }
-        return trials[whichIsSmallest];
+        return trials.get(whichIsBest);
     }
 
-    public static int totalCost(ArrayList<Double>[] data) //takes in trials data from alg() and returns total cost
+    public static int[] summarize(ArrayList<ArrayList<Double>> data) //takes in trials data from alg() and returns total cost
     {
-        ArrayList<Double> totalDistance = data[0];
-        ArrayList<Double> housesVisited = data[1];
-        return 0;//delete this
+        ArrayList<Double> totalDistance = data.get(0);
+        ArrayList<Double> housesVisited = data.get(0);
+
+        //miles driven per truck (rounding up)
+        ArrayList<Integer> milesPerTruck = new ArrayList<>();
+        double miles;
+        for (int i = 0; i < totalDistance.size(); i++)
+        {
+            miles = totalDistance.get(0) / 5000;
+            if (miles % 1 != 0)//not whole number
+            {
+                miles += 1.0;
+            }
+            milesPerTruck.set(i, (int) miles);
+        }
+
+        //time taken per truck
+        double[] time = new double[totalDistance.size()];
+        for (int i = 0; i < totalDistance.size(); i++)
+        {
+            time[i] = 0.05*totalDistance.get(i) + 1.0*housesVisited.get(i);
+        }
+
+        //calculations
+        //gas
+        int gas = 0;
+        for (int i = 0; i < milesPerTruck.size(); i++)
+        {
+            gas += 5.00*milesPerTruck.get(i);
+        }
+
+        //employees
+
+
+
+        return new int[0];//delete this
     }
 }
 
