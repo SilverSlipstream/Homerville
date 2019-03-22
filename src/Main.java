@@ -10,9 +10,9 @@ public class Main {
         Double[][] arr = cycl.coords(cycleData);
 		ArrayList<Double[]> data = new ArrayList<>(Arrays.asList(arr));
         Algorithm al = new Algorithm(data);
-		ArrayList<ArrayList<ArrayList<Double>>> trials = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> trials = new ArrayList<>();
 
-		for (int i = 1; i < trialCount; i++)//starts at 1 rented truck bc ignoring purchases
+		for (int i = 1; i <= trialCount; i++)//starts at 1 rented truck bc ignoring purchases
 		{
 			trials.set(i-1, al.trial(i)); //tests 0 to trialCount-1 rented trucks (ignore purchased trucks)
 		}

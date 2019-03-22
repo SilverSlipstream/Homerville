@@ -19,7 +19,7 @@ public class Cycle
                     bart = Integer.parseInt(scanner.nextLine());
                 } else if (line.equals("Lisa Complex")) {
                     lisa = Integer.parseInt(scanner.nextLine());
-                } else if (count > 2) {
+                } else if (count > 1) {
                     String[] arr = line.split(",");
                     arr[0] = arr[0].substring(0,arr[0].length()-1); //street
                     arr[1] = arr[1].substring(0,arr[1].length()-1); //avenue
